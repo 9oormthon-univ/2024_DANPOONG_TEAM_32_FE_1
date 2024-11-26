@@ -38,7 +38,7 @@ export default function RootLayout() {
       <StatusBar style="auto" />
       <WebView
         style={{ flex: 1 }}
-        source={{ uri: "http://400cc.araas.ai/home" }}
+        source={{ uri: "https://youthmap.site/home" }}
       />
     </SafeAreaView>
   );

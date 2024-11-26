@@ -10,18 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.jiuuoo.2024-DANPOONG-TEAM-32-FE-1",
-      "infoPlist": {
-        "NSAppTransportSecurity": {
-          "NSAllowsArbitraryLoads": true,
-          "NSExceptionDomains": {
-            "400cc.araas.ai": {
-              "NSExceptionAllowsInsecureHTTPLoads": true,
-              "NSIncludesSubdomains": true
-            }
-          }
-        }
-      }
+      "bundleIdentifier": "com.jiuuoo.2024-DANPOONG-TEAM-32-FE-1"
     },
     "android": {
       "adaptiveIcon": {
