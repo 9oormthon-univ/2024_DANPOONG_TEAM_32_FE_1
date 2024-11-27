@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "유맵",
+    "name": "YouthMap",
     "slug": "2024_DANPOONG_TEAM_32_FE_1",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,6 +17,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "icon": "./assets/images/adaptive-icon.png",
       "package": "com.jiuuoo.x2024DANPOONGTEAM32FE1"
     },
     "web": {
@@ -44,7 +45,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "d6f48c4a-0c16-4dfe-a44d-45fba31bfb70"
+        "projectId": "e414ff43-3466-44a2-b451-341b6d03971d"
       }
     }
   }
