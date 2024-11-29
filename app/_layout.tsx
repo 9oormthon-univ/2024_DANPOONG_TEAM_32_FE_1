@@ -30,9 +30,8 @@ export default function RootLayout() {
           </View>
         ) : (
           <WebView
-            originWhitelist={["*"]}
             style={styles.fullScreen}
-            source={{ uri: "https://youthmap.site/login" }}
+            source={{ uri: "https://youthmap.site/home" }}
           />
         )}
       </SafeAreaView>
