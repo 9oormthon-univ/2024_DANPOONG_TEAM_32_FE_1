@@ -12,22 +12,7 @@ import WebView from "react-native-webview";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
-
   const [isLoading, setIsLoading] = useState(true);
-  const [webViewLoaded, setWebViewLoaded] = useState(false);
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  const handleAnimationFinish = () => {
-    setIsLoading(false);
-  };
 
   if (!loaded) {
     return null;
@@ -38,24 +23,15 @@ export default function RootLayout() {
       <StatusBar style="auto" />
       <SafeAreaView style={styles.container}>
         {isLoading ? (
-          <>
-            <View style={styles.animationContainer}>
-              <LottieView
-                source={require("../assets/animations/splash-screen.json")}
-                style={styles.lottie}
-                autoPlay
-                loop={false}
-                onAnimationFinish={handleAnimationFinish}
-              />
-            </View>
-
-            <View style={styles.hiddenWebView}>
-              <WebView
-                source={{ uri: "https://youthmap.site/home" }}
-                onLoadEnd={() => setWebViewLoaded(true)}
-              />
-            </View>
-          </>
+          <View style={styles.animationContainer}>
+            <LottieView
+              source={require("../assets/animations/splash-screen.json")}
+              style={styles.lottie}
+              autoPlay
+              loop={false}
+              onAnimationFinish={() => setIsLoading(false)}
+            />
+          </View>
         ) : (
           <WebView
             style={styles.fullScreen}
