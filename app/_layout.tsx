@@ -14,6 +14,12 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    if (!isLoading) {
+      SplashScreen.hideAsync();
+    }
+  }, [isLoading]);
+
   return (
     <>
       <StatusBar style="auto" />
@@ -31,7 +37,7 @@ export default function RootLayout() {
         ) : (
           <WebView
             style={styles.fullScreen}
-            source={{ uri: "https://youthmap.site/home" }}
+            source={{ uri: "https://youthmap.site/login" }}
           />
         )}
       </SafeAreaView>
