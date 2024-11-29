@@ -14,10 +14,6 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [isLoading, setIsLoading] = useState(true);
 
-  if (!loaded) {
-    return null;
-  }
-
   return (
     <>
       <StatusBar style="auto" />
@@ -34,7 +30,9 @@ export default function RootLayout() {
           </View>
         ) : (
           <WebView
+            originWhitelist={["*"]}
             style={styles.fullScreen}
+            scalesPageToFit={false}
             source={{ uri: "https://youthmap.site/home" }}
           />
         )}
