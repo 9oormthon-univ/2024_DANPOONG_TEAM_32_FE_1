@@ -1,11 +1,9 @@
-import { useFonts } from "expo-font";
+import React, { useEffect, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
 import "react-native-reanimated";
-
-import { SafeAreaView, View, StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
+import { SafeAreaView, View, StyleSheet } from "react-native";
 import WebView from "react-native-webview";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -28,7 +26,7 @@ export default function RootLayout() {
           <View style={styles.animationContainer}>
             <LottieView
               source={require("../assets/animations/splash-screen.json")}
-              style={styles.lottie}
+              style={styles.lottieView}
               autoPlay
               loop={false}
               onAnimationFinish={() => setIsLoading(false)}
@@ -36,7 +34,7 @@ export default function RootLayout() {
           </View>
         ) : (
           <WebView
-            style={styles.fullScreen}
+            style={styles.webView}
             source={{ uri: "https://youthmap.site/login" }}
           />
         )}
@@ -59,20 +57,14 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: -150,
   },
-  fullScreen: {
+  webView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
     height: "100%",
   },
-  hiddenWebView: {
-    flex: 0,
-    width: 0,
-    height: 0,
-    opacity: 0,
-  },
-  lottie: {
+  lottieView: {
     width: "100%",
     height: "100%",
   },

@@ -5,19 +5,19 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "youthmap",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.jiuuoo.2024-DANPOONG-TEAM-32-FE-1"
+      "bundleIdentifier": "com.youthmap.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jiuuoo.x2024DANPOONGTEAM32FE1"
+      "package": "com.youthmap.app"
     },
     "web": {
       "bundler": "metro",
