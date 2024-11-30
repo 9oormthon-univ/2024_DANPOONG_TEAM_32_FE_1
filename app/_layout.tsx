@@ -3,8 +3,11 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import LottieView from "lottie-react-native";
-import { SafeAreaView, View, StyleSheet } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import WebView from "react-native-webview";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import * as Linking from "expo-linking";
+import SendIntentAndroid from "react-native-send-intent";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -18,8 +21,31 @@ export default function RootLayout() {
     }
   }, [isLoading]);
 
+  function handleStartLoadWithRequest(event: { url: string }) {
+    const { url } = event; // event.url을 사용할 때 변수로 추출
+
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      return true;
+    } else if (Platform.OS === "android" && url.startsWith("intent")) {
+      SendIntentAndroid.openChromeIntent(url).then(() => {
+        return false;
+      });
+      return false;
+    }
+    Linking.canOpenURL(url)
+      .then((supported) => {
+        if (supported) {
+          Linking.openURL(url);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    return false;
+  }
+
   return (
-    <>
+    <SafeAreaProvider>
       <StatusBar style="auto" />
       <SafeAreaView style={styles.container}>
         {isLoading ? (
@@ -36,10 +62,11 @@ export default function RootLayout() {
           <WebView
             style={styles.webView}
             source={{ uri: "https://youthmap.site/login" }}
+            onShouldStartLoadWithRequest={handleStartLoadWithRequest}
           />
         )}
       </SafeAreaView>
-    </>
+    </SafeAreaProvider>
   );
 }
 
