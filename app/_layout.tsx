@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
@@ -14,15 +14,45 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [isLoading, setIsLoading] = useState(true);
+  const [appIsReady, setAppIsReady] = useState(false);
+  const [animation, setAnimation] = useState(null);
 
+  // 앱 초기화 로직
   useEffect(() => {
-    if (!isLoading) {
-      SplashScreen.hideAsync();
+    async function prepare() {
+      try {
+        // 애니메이션 파일 로드
+        const anim = require("../assets/animations/splash-screen.json");
+        setAnimation(anim);
+
+        // 다른 필요한 리소스들 로드
+        await Promise.all([
+          // 필요한 다른 리소스 로딩을 여기에 추가
+        ]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setAppIsReady(true);
+      }
     }
-  }, [isLoading]);
+
+    prepare();
+  }, []);
+
+  // SplashScreen 제어
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  // 앱이 준비되지 않았으면 null 반환
+  if (!appIsReady) {
+    return null;
+  }
 
   function handleStartLoadWithRequest(event: { url: string }) {
-    const { url } = event; // event.url을 사용할 때 변수로 추출
+    const { url } = event;
 
     if (url.startsWith("http://") || url.startsWith("https://")) {
       return true;
@@ -45,16 +75,17 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider onLayout={onLayoutRootView}>
       <StatusBar style="auto" />
       <SafeAreaView style={styles.container}>
-        {isLoading ? (
+        {isLoading && animation ? (
           <View style={styles.animationContainer}>
             <LottieView
-              source={require("../assets/animations/splash-screen.json")}
+              source={animation}
               style={styles.lottieView}
               autoPlay
               loop={false}
+              speed={1.0}
               onAnimationFinish={() => setIsLoading(false)}
             />
           </View>
